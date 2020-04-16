@@ -6,7 +6,6 @@ import tensorflow.keras as keras
 from tensorflow.keras.datasets import reuters
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Activation, Dropout, AlphaDropout
-# from tensorflow.keras.layers.noise import AlphaDropout
 from tensorflow.keras.preprocessing.text import Tokenizer
 
 max_words = 1000
