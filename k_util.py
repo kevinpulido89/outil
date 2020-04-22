@@ -1,9 +1,11 @@
 def describe(element):
     print()
+    t = type(element)
+    
     try:
-        return print('Type:',type(element),'|| Size:', element.shape)
+        return print('Type:',t,'|| Size:', element.shape)
     except:
-        return print('Type:',type(element),'|| Size:', len(element))
+        return print('Type:',t,'|| Size:', len(element))
     finally:
         print()
 
