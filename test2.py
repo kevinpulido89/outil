@@ -7,19 +7,17 @@
 #
 # describe(b)  # --> Type: <class 'numpy.ndarray'> || Size: (2, 3)
 
-d = {'c':2,
-     'b':4,
-     'a':19
-}
+# d = {'c':2,
+#      'b':4,
+#      'a':19
+# }
 
 # print([(k,v) for k , v in sorted(d.items(), key=lambda x: x[1])])
-print(sorted(d.items(), key=lambda x: x[0]))
-
-
+# print(sorted(d.items(), key=lambda x: x[0]))
 
 # print(d.items())
 
-# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 # ll = [2, 3, 5, 7, 9]
 
@@ -41,3 +39,53 @@ print(sorted(d.items(), key=lambda x: x[0]))
 #     raise float('-inf')
 
 # print([e*a for e,a in zip(ll[:-1], ll[1:])])
+
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+# from datetime import datetime
+# import pandas as pd
+#
+# def getm(number):
+#     if number < 10 :
+#         return '0' + str(number)
+#     else:
+#         return str(number)
+#
+# data  = pd.DataFrame([[datetime(year=2019, month=8, day=3),1],
+#                       [datetime(year=2019, month=9, day=4),2],
+#                       [datetime(year=2019, month=8, day=8),3]],
+#                       columns=['created', 'id'])
+#
+# data['month'] = data['created'].apply(lambda fecha: '{y}-{m}'.format(y=fecha.year, m=getm(fecha.month)))
+#
+# # data.drop('created', inplace=True)
+#
+# data.sort_values(by=['month'], inplace=True)
+#
+# gp = data.groupby(by='month').aggregate({'id':'count'})
+# print(gp)
+#
+# df = pd.DataFrame(gp)
+#
+# print(gp.loc['2019-08','id'])
+
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+import numpy as np
+import matplotlib.pyplot as plt
+
+d1 = np.random.normal(loc=0.1, scale=3, size=2000)
+d2 = np.random.normal(loc=-2,  scale=1, size=2000)
+d3 = np.random.normal(loc=3,   scale=2, size=2000)
+d4 = np.random.normal(loc=7,   scale=2, size=2000)
+
+kwargs = dict(histtype='stepfilled',
+              alpha=0.3,
+              density=True,
+              bins=40)
+
+plt.hist(d1, **kwargs)
+plt.hist(d2, **kwargs)
+plt.hist(d3, **kwargs)
+plt.hist(d4, **kwargs)
+plt.show()
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
