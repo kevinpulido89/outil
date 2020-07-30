@@ -155,23 +155,3 @@
 #     return tmp
 #
 # print(unir_sumar(nums))
-
-s = 'Bananae'
-
-vowels = 'AEIOU'
-
-stusc = 0
-kevsc = 0
-
-for i in range(len(s)):
-    if s[i] in vowels:
-        kevsc += (len(s)-i)
-    else:
-        stusc += (len(s)-i)
-
-if kevsc > stusc:
-    print("Kevin", kevsc)
-elif kevsc < stusc:
-    print ("Stuart", stusc)
-else:
-    print ("Draw")
