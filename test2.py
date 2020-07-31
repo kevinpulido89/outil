@@ -155,3 +155,41 @@
 #     return tmp
 #
 # print(unir_sumar(nums))
+
+
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# Split columns in pandas
+
+# import pandas as pd
+#
+# df = pd.DataFrame({'AB': ['A1-B1', 'A2-B2']})
+#
+# df[['A', 'B']] = df['AB'].str.split('-', 1, expand=True)
+# print(df)
+
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+# def nearest_square(num=int):
+#     '''
+#     Return the nearest square perfect square that is less than or equal to num
+#     '''
+#
+#     root = 0
+#     while (root + 1)**2 <= num:
+#         root += 1
+#     return root ** 2
+#
+# # TDD> Test driven development
+# # https://www.linkedin.com/pulse/data-science-test-driven-development-sam-savage/
+# # https://medium.com/uk-hydrographic-office/test-driven-development-is-essential-for-good-data-science-heres-why-db7975a03a44
+# # https://engineering.pivotal.io/post/test-driven-development-for-data-science/
+# # https://docs.python-guide.org/writing/tests/
+#
+# print(nearest_square(65))
+#
+# def validator_nearest_square():
+#     assert nearest_square(5) == 4
+#     assert nearest_square(9) == 9
+#     assert nearest_square(-12) == 0
+
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
