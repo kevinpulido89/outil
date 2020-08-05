@@ -1,6 +1,6 @@
 # By: Kevin PULIDO
 
-import pandas as pd
+# import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -14,7 +14,10 @@ class EDA(object):
     def __init__(self, df):
         super(EDA, self).__init__()
         self.df = df
-        self.shape = self.df.shape
+
+    @property
+    def shape(self):
+        return self.df.shape
 
     def update(self):
         self.shape = self.df.shape
@@ -54,7 +57,7 @@ class EDA(object):
 
     def GraphSensorsDistributions(self):
         plt.figure(dpi=120)
-        rws = int(df.shape[1]/2)
+        rws = int(self.df.shape[1]/2)
 
         for i, name_col in enumerate(self.df.columns):
             try:
@@ -119,19 +122,5 @@ class EDA(object):
     def copy(self):
         return self.df.copy()
 
-
-df = pd.read_csv('C:/Users/Kevin Pulido/github/outil/Customers.csv')
-
-# print(df.head())
-
-dataset = EDA(df)
-dataset.shape
-dataset.sum_null()
-dataset.fill_mean('Age')
-dataset.drop_nan()
-# dataset.dropper(['Spendings(1-100)', 'Age'], axis=1)
-dataset.corr_heatmap()
-print(dataset.high_corr(threshold=0.85, drop=True))
-
-dataset.GraphSensorsDistributions()
-print(dataset.shape)
+    def wha(self):
+        pass
