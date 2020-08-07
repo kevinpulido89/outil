@@ -588,89 +588,143 @@
 # unittest.TextTestRunner().run(tests_loaded)
 
 # >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#
+# class Clothing(object):
+#
+#     def __init__(self, color, size, style, price):
+#         self.color = color
+#         self.size = size
+#         self.style = style
+#         self.price = price
+#
+#     def change_price(self, price):
+#         self.price = price
+#
+#     def calculate_discount(self, discount):
+#         return self.price * (1 - discount)
+#
+#     def calculate_shipping(self, weight, rate):
+#         self.weight = weight
+#         self.rate = rate
+#         return self.weight * self.rate
+#
+# # TODO: Add a method to the clothing class called calculate_shipping.
+# #   The method has two inputs: weight and rate. Weight is a float
+# #   representing the weight of the article of clothing. Rate is a float
+# #   representing the shipping weight. The method returns weight * rate
+#
+# class Shirt(Clothing):
+#
+#     def __init__(self, color, size, style, price, long_or_short):
+#
+#         Clothing.__init__(self, color, size, style, price)
+#         self.long_or_short = long_or_short
+#
+#     def double_price(self):
+#         self.price = 2*self.price
+#
+# class Pants(Clothing):
+#
+#     def __init__(self, color, size, style, price, waist):
+#
+#         Clothing.__init__(self, color, size, style, price)
+#         self.waist = waist
+#
+#     def calculate_discount(self, discount):
+#         return self.price * (1 - discount / 2)
+#
+# class Blouse(Clothing):
+#     """docstring for Blouse."""
+#
+#     def __init__(self, color, size, style, price, country_of_origin):
+#
+#         Clothing.__init__(self, color, size, style, price)
+#         self.country_of_origin = country_of_origin
+#
+#     def triple_price(self):
+#         return self.price*3
+#
+# import unittest
+#
+# class TestClothingClass(unittest.TestCase):
+#     def setUp(self):
+#         self.clothing = Clothing('orange', 'M', 'stripes', 35)
+#         self.blouse = Blouse('blue', 'M', 'luxury', 40, 'Brazil')
+#         self.pants = Pants('black', 32, 'baggy', 60, 30)
+#
+#     def test_initialization(self):
+#         self.assertEqual(self.clothing.color, 'orange', 'color should be orange')
+#         self.assertEqual(self.clothing.price, 35, 'incorrect price')
+#
+#         self.assertEqual(self.blouse.color, 'blue', 'color should be blue')
+#         self.assertEqual(self.blouse.size, 'M', 'incorrect size')
+#         self.assertEqual(self.blouse.style, 'luxury', 'incorrect style')
+#         self.assertEqual(self.blouse.price, 40, 'incorrect price')
+#         self.assertEqual(self.blouse.country_of_origin, 'Brazil', 'incorrect country of origin')
+#
+#     def test_calculateshipping(self):
+#         self.assertEqual(self.clothing.calculate_shipping(.5, 3), .5 * 3,\
+#          'Clothing shipping calculation not as expected')
+#
+#         self.assertEqual(self.blouse.calculate_shipping(.5, 3), .5 * 3,\
+#          'Clothing shipping calculation not as expected')
+#
+# tests = TestClothingClass()
+#
+# tests_loaded = unittest.TestLoader().loadTestsFromModule(tests)
+#
+# unittest.TextTestRunner().run(tests_loaded)
 
-class Clothing(object):
+> ##################################################################################################
+# Udacity Machine Learning Foundations
 
-    def __init__(self, color, size, style, price):
-        self.color = color
-        self.size = size
-        self.style = style
-        self.price = price
+#Renaming Columns
+df.columns = [label.replace(' ', '_') for label in df.columns]
 
-    def change_price(self, price):
-        self.price = price
+# Analyzing Features
+def numeric_to_buckets(df, column_name):
+    median = df[column_name].median()
+    for i, val in enumerate(df[column_name]):
+        if val >= median:
+            df.loc[i, column_name] = 'high'
+        else:
+            df.loc[i, column_name] = 'low'
 
-    def calculate_discount(self, discount):
-        return self.price * (1 - discount)
+for feature in df.columns[:-1]: # All columns esxcept the label-variable column
+    numeric_to_buckets(df, feature)
+    print(df.groupby(feature).quality.mean(), '\n') #Replace quality for the label-variable column
 
-    def calculate_shipping(self, weight, rate):
-        self.weight = weight
-        self.rate = rate
-        return self.weight * self.rate
+# Optimizing Code:
+start = time.time()
+recent_coding_books = np.intersect1d(recent_books, coding_books)
+print(len(recent_coding_books))
+print('Duration: {} seconds'.format(time.time() - start))
 
-# TODO: Add a method to the clothing class called calculate_shipping.
-#   The method has two inputs: weight and rate. Weight is a float
-#   representing the weight of the article of clothing. Rate is a float
-#   representing the shipping weight. The method returns weight * rate
+start = time.time()
+recent_coding_books = set(recent_books).intersection(coding_books)
+print(len(recent_coding_books))
+print('Duration: {} seconds'.format(time.time() - start))
 
-class Shirt(Clothing):
+# Example 2
+with open('gift_costs.txt') as f:
+    gift_costs = f.read().split('\n')
 
-    def __init__(self, color, size, style, price, long_or_short):
+gift_costs = np.array(gift_costs).astype(int)  # convert string to int
 
-        Clothing.__init__(self, color, size, style, price)
-        self.long_or_short = long_or_short
+# Non optimal
+start = time.time()
 
-    def double_price(self):
-        self.price = 2*self.price
+total_price = 0
+for cost in gift_costs:
+    if cost < 25:
+        total_price += cost * 1.08  # add cost after tax
 
-class Pants(Clothing):
+print(total_price)
+print('Duration: {} seconds'.format(time.time() - start))
 
-    def __init__(self, color, size, style, price, waist):
-
-        Clothing.__init__(self, color, size, style, price)
-        self.waist = waist
-
-    def calculate_discount(self, discount):
-        return self.price * (1 - discount / 2)
-
-class Blouse(Clothing):
-    """docstring for Blouse."""
-
-    def __init__(self, color, size, style, price, country_of_origin):
-
-        Clothing.__init__(self, color, size, style, price)
-        self.country_of_origin = country_of_origin
-
-    def triple_price(self):
-        return self.price*3
-
-import unittest
-
-class TestClothingClass(unittest.TestCase):
-    def setUp(self):
-        self.clothing = Clothing('orange', 'M', 'stripes', 35)
-        self.blouse = Blouse('blue', 'M', 'luxury', 40, 'Brazil')
-        self.pants = Pants('black', 32, 'baggy', 60, 30)
-
-    def test_initialization(self):
-        self.assertEqual(self.clothing.color, 'orange', 'color should be orange')
-        self.assertEqual(self.clothing.price, 35, 'incorrect price')
-
-        self.assertEqual(self.blouse.color, 'blue', 'color should be blue')
-        self.assertEqual(self.blouse.size, 'M', 'incorrect size')
-        self.assertEqual(self.blouse.style, 'luxury', 'incorrect style')
-        self.assertEqual(self.blouse.price, 40, 'incorrect price')
-        self.assertEqual(self.blouse.country_of_origin, 'Brazil', 'incorrect country of origin')
-
-    def test_calculateshipping(self):
-        self.assertEqual(self.clothing.calculate_shipping(.5, 3), .5 * 3,\
-         'Clothing shipping calculation not as expected')
-
-        self.assertEqual(self.blouse.calculate_shipping(.5, 3), .5 * 3,\
-         'Clothing shipping calculation not as expected')
-
-tests = TestClothingClass()
-
-tests_loaded = unittest.TestLoader().loadTestsFromModule(tests)
-
-unittest.TextTestRunner().run(tests_loaded)
+#Optimal
+start = time.time()
+# total_price = sum(gift_costs[gift_costs < 25])*1.08 # 0.29
+total_price = gift_costs[gift_costs < 25].sum()*1.08 # 0.071
+print(total_price)
+print('Duration: {} seconds'.format(time.time() - start))
