@@ -23,3 +23,7 @@ def concatenar_csv(path):
         full_file = pandas.concat([full_file, df])
 
     return full_file
+
+import numpy as np
+
+arr = np.array()

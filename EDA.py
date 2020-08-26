@@ -55,7 +55,7 @@ class EDA(object):
         self.df.reset_index(drop=True, inplace=True)
         self.update()
 
-    def GraphSensorsDistributions(self):
+    def GraphDistributions(self):
         plt.figure(dpi=120)
         rws = int(self.df.shape[1]/2)
 
@@ -105,22 +105,30 @@ class EDA(object):
         plt.show()
 
     def high_corr(self, threshold=0.9, drop=False):
-        # Create correlation matrix
+        """Calculates and return the more correlated columns that pass the threshold
+
+        Args:
+            threshold (float, optional): [description]. Defaults to 0.9.
+            drop (bool, optional): [description]. Defaults to False.
+
+        Returns:
+            [list]: [Columns that reach the threshold]
+        """
+
+        # ! Create correlation matrix
         corr_matrix = self.df.corr().abs()
 
-        # Select upper triangle of correlation matrix
+        # todo Select upper triangle of correlation matrix
         upper = corr_matrix.where(np.triu(np.ones(corr_matrix.shape), k=1).astype(np.bool))
 
-        # Find features with correlation greater than threshold
+        # ? Find features with correlation greater than threshold
         to_drop = [column for column in upper.columns if any(upper[column] >= threshold)]
 
         if drop:
             self.dropper(to_drop, axis=1)
 
-        return to_drop
+        return to_drop #* Done
 
     def copy(self):
         return self.df.copy()
-
-    def wha(self):
-        pass
+        
